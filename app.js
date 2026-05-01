@@ -15,7 +15,7 @@ armies:{
 },
  missions:[],
   campaignName: "<Enter Campaign Name>",
-  scoreTracker: {rounds: ["R1","R2","R3","R4","R5"], objectives: {A: [], B: []}},
+  scoreTracker: {rounds: [], objectives: {A: [], B: []}},
 };
 
 const CONFIG = {singleMFGPerUnit: true, mfgPerArmyMin: 1, mfgPerArmyMax: 1}; 
@@ -129,7 +129,7 @@ function clearAllData(){
       B: { name: "<Army Name>", score: 0, units: [], color: "#0000ff", sigil: "", mfgTicks: [false,false,false] }
     },
 	scoreTracker: {
-  rounds: ["R1","R2","R3","R4","R5"],
+  rounds: [],
   objectives: {
     A: [],
     B: []
@@ -834,7 +834,7 @@ function renderScoreTracker(){
   // ✅ SAFETY: ensure structure always exists
   if(!state.scoreTracker){
     state.scoreTracker = {
-      rounds: ["R1","R2","R3","R4","R5"],
+      rounds: [],
       objectives: { A: [], B: [] }
     };
   }
