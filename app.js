@@ -887,8 +887,11 @@ function renderScoreTracker(){
         <tr>
 		  <td>
 		    <div style="display:flex; align-items:center; gap:4px;">
-		      <input style="flex:1;" value="${obj.name}" 
-		             onchange="updateObjective(${i}, 'name', this.value, '${side}')">
+		      <textarea 
+  				style="flex:1; resize:none; overflow:hidden;" 
+			    oninput="autoGrow(this)" 
+			    onchange="updateObjective(${i}, 'name', this.value, '${side}')"
+			  >${obj.name || ""}</textarea>
 		      <button onclick="removeObjective(${i}, '${side}')" style="font-size:10px; height:22px; padding:0 6px;">✕</button>
 		    </div>
 		  </td>
@@ -915,6 +918,11 @@ function renderScoreTracker(){
 
   document.getElementById("scoreTrackerA").innerHTML = buildTable("A");
   document.getElementById("scoreTrackerB").innerHTML = buildTable("B");
+
+  setTimeout(()=>{
+    document.querySelectorAll("#scoreTrackerA textarea, #scoreTrackerB textarea")
+      .forEach(autoGrow);
+  }, 0);
 }
 
 function updateObjective(index, field, value, side){
