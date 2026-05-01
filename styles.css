@@ -1,1 +1,123 @@
-
+<style>
+:root {color-scheme: dark;   --space-xs: 5px; --space-sm: 10px; --space-md: 20px; --space-lg: 30px; --space-xl: 45px;}
+h1, h2, h3, h4, p {margin:0;}
+h1, h2 {font-family: "Orbitron", sans-serif;}
+input, textarea {background: #111; color: #eee; border: 1px solid #444;}
+input[type="color"] {background:#111; border:1px solid #444; height:30px; width:60px; cursor:pointer;}
+input[type="checkbox"]:disabled {opacity: 0.4; cursor: not-allowed;}
+input {box-sizing: border-box;}
+html, body { font-family: "Rajdhani"; background:#111; color:#eee; padding:20px; }
+body {text-align:center; font-family: "Rajdhani", sans-serif;}
+#topLeftMenu {position: fixed; top: 10px; left: 10px; z-index: 1000;}
+.dropdown {position: relative;}
+.dropdown-content {display: none; position: absolute; background: #111; min-width: 180px; border: 1px solid #444; box-shadow: 0 0 10px #cd7f32;}
+.dropdown-content a {display: block; padding: 8px; color: white; text-decoration: none;}
+.dropdown-content a:hover {background: #333;}
+.dropdown.open .dropdown-content {display: block;}
+#campaignTitle, #nameA, #nameB, #battleLogTitle {display:inline-block;text-align:center;cursor:pointer;transition:all 0.3s ease;color:#eee;text-shadow:0 0 3px rgba(150,0,0,0.3),0 0 8px rgba(150,0,0,0.15);}
+#campaignTitle:hover, #nameA:hover, #nameB:hover, #battleLogTitle:hover {color:#fff;text-shadow:0 0 8px rgba(150,0,0,0.9),0 0 20px rgba(150,0,0,0.7),0 0 40px rgba(150,0,0,0.5),0 0 70px rgba(150,0,0,0.3),0 0 110px rgba(150,0,0,0.15);transform:scale(1.02);}
+#campaignTitle {margin-bottom: var(--space-md);}
+.army {padding: var(--space-sm);}
+.army {position:relative; overflow:hidden;}
+.army h2 {margin-bottom: var(--space-sm);}
+.army-sigil {position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:70%; height:70%; background-repeat:no-repeat; background-position:center; background-size:contain;
+  opacity:0.08; pointer-events:none; z-index:0; animation: sigilPulse 6s ease-in-out infinite;}
+.sigil-upload-btn {display:inline-block; padding:6px 12px; background:linear-gradient(145deg,#1a1a1a,#0d0d0d); border:1px solid #444; border-radius:4px; cursor:pointer; font-size:13px;}
+.sigil-upload-btn:hover {border-color:#aaa; color:#fff;}
+.sigil-upload-btn input {display:none;}
+.bar {margin: var(--space-sm) 0;}
+#barA, #barB {position: relative; overflow: hidden;}
+#barA::after, #barB::after {content: ""; position: absolute; top: 0; left: -50%; width: 50%; height: 100%; background: linear-gradient(120deg, transparent, rgba(255,255,255,0.25), transparent);
+  animation: shimmerMove 2.5s infinite; pointer-events: none;}
+.center-buttons {margin: var(--space-sm) 0;}
+table {margin-top: var(--space-sm);}
+#battleLogTitle {margin: var(--space-lg) 0 var(--space-sm) 0;}
+#battleLogTitle + .center-buttons {margin-bottom: var(--space-sm);}
+#log {margin-top: var(--space-sm);}
+.modal-content > * {margin-bottom: var(--space-sm);}
+.modal-content > *:last-child {margin-bottom: 0;}
+.container { display:flex; gap:10px; }
+.army { width:50%; border:1px solid #444; padding:10px; }
+.center-buttons { text-align:center; }
+.bar { height:20px; background:#333; margin:10px 0; position:relative; overflow:hidden; }
+.large-bar {background: radial-gradient(circle at 50% 50%, rgba(205, 127, 50, 0.6) 10%,   /* bright bronze center */ rgba(120, 70, 30, 0.5) 30%, rgba(40, 25, 10, 0.9) 60%, rgba(15, 10, 5, 1) 100%);
+}.large-fill {position:absolute;height:100%;width:0%;background:linear-gradient(145deg,#8a6a3a,#4f3a1f);transition:width 0.4s ease,left 0.4s ease,box-shadow 0.4s ease;}
+.center { position:absolute; left:50%; width:2px; background:#fff; top:0; bottom:0; }
+table { width:100%; border-collapse:collapse; margin-top:10px; }
+th[title] {cursor: help;}
+td,th { border:1px solid #444; padding:4px; text-align:center; }
+th[onclick] {cursor:pointer;}
+th[onclick]:hover {text-shadow:0 0 6px rgba(150,0,0,0.6);}
+th[onclick]::after {content: " ⓘ"; opacity: 0.5; font-size: 10px;}
+tr:hover {background: rgba(255,255,255,0.05);}
+.hidden { display:none; }
+.log {max-height:2px; overflow-y:auto; overflow-x:hidden; border:1px solid #444; padding:5px; transition:max-height 0.25s ease, opacity 0.2s ease; opacity:0.9;}
+.log.open {max-height:500px; opacity:1;}
+.modal { position:fixed; inset:0; background:rgba(0,0,0,.8); display:none; justify-content:center; align-items:center; }
+.modal-content { background:#222; padding:20px; width:600px; max-height:80vh; overflow:auto; border: 1px solid #444; box-shadow: 0 0 12px #cd7f32, 0 0 30px rgba(205,127,50,0.4);}
+.modal-columns {display: flex; gap: 40px;}
+.modal-columns > div {text-align: left;}
+.modal-columns span {display: block; flex: 1;}
+.modal-columns > div {width: 50%;}
+.modal-columns label {line-height: 1.2;}
+.modal-columns label {display: flex; align-items: flex-start; gap: 8px; padding: 4px 0; cursor: pointer;justify-content: flex-start;}
+.modal-columns label:hover {background: rgba(255,255,255,0.05); border-radius: 4px;}
+.modal-columns strong {display: block; margin-bottom: 6px; text-align: left; color: #aaa;}
+.modal-columns > div {background: rgba(255,255,255,0.03); padding: 8px; border: 1px solid #333; border-radius: 4px;}
+.modal-columns input[type="checkbox"] {margin: 3px 0 0 0; flex-shrink: 0;}
+.modal-content h4 {margin-top: 20px; border-bottom: 1px solid #333; padding-bottom: 4px;}
+#guideModal .modal-content {border:1px solid #666; box-shadow: 0 0 20px rgba(0,0,0,.9), 0 0 18px rgba(150,0,0,.35); background: linear-gradient( to bottom, #1a1a1a, #151515);}
+input, textarea { width:100%; margin-bottom:10px; }
+h2:hover {color: #ccc;}
+.tick {position:absolute; top:50%; transform:translate(-50%, -50%); font-size:18px; line-height:1; color:#fff; pointer-events:auto; cursor: help;}
+.tick[title="+1 MFG"]:hover {text-shadow: 0 0 8px rgba(255,215,0,0.8);}
+button {background:linear-gradient(145deg,#1a1a1a,#0d0d0d);color:#ccc;border:1px solid #444;padding:6px 12px;font-size:13px;cursor:pointer;border-radius:4px;
+ box-shadow: 0 0 6px #cd7f32, 0 0 12px rgba(205,127,50,0.5); transition: box-shadow 0.2s ease;}
+button:hover {color:#fff;border-color:#aaa;box-shadow: 0 0 10px #cd7f32, 0 0 20px rgba(205,127,50,0.8);}
+button:active {transform:translateY(1px);box-shadow:inset 0 0 10px #000,0 0 6px rgba(150,0,0,0.5);}
+.unit-grid {display: grid; grid-template-columns: 1fr 80px 80px; gap: 6px; align-items: center; margin-bottom: 15px;}
+.unit-grid .header {font-weight: bold; color: #aaa; border-bottom: 1px solid #333; padding-bottom: 4px;}
+.unit-name {text-align: left;}
+.unit-grid input {margin: auto;}
+.unit-grid {display:grid;grid-template-columns:1fr 80px 80px;gap:6px;align-items:center;margin-bottom:15px;border-top:1px solid #333;}
+.unit-grid > div {padding:4px 0;}
+.unit-grid .header {font-weight:bold;color:#ccc;text-transform:uppercase;font-size:12px;letter-spacing:1px;border-bottom:1px solid #333;padding-bottom:4px;}
+.unit-name {text-align:left;}
+.unit-grid input {margin:auto;}
+.unit-grid div:nth-child(6n+4), .unit-grid div:nth-child(6n+5), .unit-grid div:nth-child(6n+6) {background:rgba(255,255,255,0.02);}
+.unit-grid input:hover {box-shadow:0 0 4px rgba(150,0,0,0.6);}
+.log {max-height:0; overflow:hidden; border:1px solid #444; padding:0; transition:max-height 0.25s ease, opacity 0.2s ease; opacity:0;}
+#saveLoadUI {position: fixed; top: 15px; right: 20px; display: flex; gap: 8px; z-index: 1000;}
+#saveLoadUI button {padding: 6px 10px; font-size: 12px;}
+#saveLoadUI {background: rgba(0,0,0,0.6); padding: 6px 10px; border-radius: 8px;}
+#notesLore, #notesRanged, #notesMelee, #notesPsychic, #notesAbilities {min-height:60px; overflow:hidden; resize:none;}
+#datasheetTable table {margin: 0 auto; table-layout: fixed;}
+#datasheetTable th, #datasheetTable td {text-align:center; vertical-align:middle; padding:4px;}
+#datasheetTable input {display:block; margin:0 auto; width:100%; box-sizing:border-box; text-align:center;}
+@keyframes bronzePulse {0%   { filter: brightness(1); } 50%  { filter: brightness(1.25); } 100% { filter: brightness(1); }}
+@keyframes sigilPulse {0%   { opacity: 0.08; } 50%  { opacity: 0.16; } 100% { opacity: 0.08; }}
+@keyframes starPulse {0%   { transform: translate(-50%, -50%) scale(1); } 50%  { transform: translate(-50%, -50%) scale(1.25); } 100% { transform: translate(-50%, -50%) scale(1); }}
+@keyframes shimmerMove {0% { left: -50%;} 100% { left: 150%;}}
+@media (max-width: 768px) {
+  /* Stack armies vertically */
+  .container {display: flex; flex-direction: column !important;}
+  .army {width: 100% !important; margin-bottom: 15px;}
+  /* Make tables scroll instead of overflow */
+  table {display: block; overflow-x: auto; white-space: nowrap;}
+  /* Improve button tap targets */
+  button {padding: 10px 14px; font-size: 14px;}
+  /* Color picker easier to tap */
+  input[type="color"] {width: 60px; height: 40px;}
+  /* Modal sizing fix */
+  .modal-content {width: 90%; max-height: 90vh; overflow-y: auto;}
+  /* Prevent cramped headers */
+  th, td {padding: 6px 8px; font-size: 13px;}
+  /* Center button groups better */
+  .center-buttons {flex-wrap: wrap; gap: 6px;}
+  #saveLoadUI {position: static; margin-bottom: 10px; justify-content: center; flex-wrap: wrap;}
+  table {font-size: 12px;}
+  th, td {padding: 6px;}
+  h1 {font-size: 22px;}
+  .army {padding: 12px;}
+	}
+</style>
