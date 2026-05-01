@@ -83,6 +83,7 @@ function closeGuideModal(){
 
 function autoGrow(el){
   el.style.height = "auto";
+  el.style.overflow = "hidden";
   el.style.height = el.scrollHeight + "px";
 }
 
@@ -886,9 +887,9 @@ function renderScoreTracker(){
       html += `
         <tr>
 		  <td>
-		    <div style="display:flex; align-items:center; gap:4px;">
+		    <div style="display:flex; align-items:flex-start; gap:4px;">
 		      <textarea 
-  				style="flex:1; resize:none; overflow:hidden;" 
+  				style="width:100%; resize:none; overflow:hidden; box-sizing:border-box;"
 			    oninput="autoGrow(this)" 
 			    onchange="updateObjective(${i}, 'name', this.value, '${side}')"
 			  >${obj.name || ""}</textarea>
@@ -919,10 +920,10 @@ function renderScoreTracker(){
   document.getElementById("scoreTrackerA").innerHTML = buildTable("A");
   document.getElementById("scoreTrackerB").innerHTML = buildTable("B");
 
-  setTimeout(()=>{
+  requestAnimationFrame(()=>{
     document.querySelectorAll("#scoreTrackerA textarea, #scoreTrackerB textarea")
       .forEach(autoGrow);
-  }, 0);
+  });
 }
 
 function updateObjective(index, field, value, side){
