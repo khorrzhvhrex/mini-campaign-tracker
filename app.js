@@ -814,7 +814,7 @@ function removeObjective(index, side){
 function removeBattleRound(round){
 
   const rounds = state.scoreTracker.rounds;
-  if(rounds.length <= 1) return;
+  if(rounds.length === 0) return;
 
   state.scoreTracker.rounds = rounds.filter(r => r !== round);
 
@@ -1494,7 +1494,7 @@ function handleImport(e){
 
 	  // ✅ ensure scoreTracker exists on imported files
 	  if(!state.scoreTracker){
-	 	state.scoreTracker = { rounds: ["R1"], objectives: [] };
+	 	state.scoreTracker = { rounds: [], objectives: [] };
 	  }
 
         ["A","B"].forEach(side=>{
