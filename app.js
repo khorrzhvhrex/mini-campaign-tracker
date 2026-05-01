@@ -777,15 +777,13 @@ function removeUnit(side,id){
 let activeMFGSide = null;
 let activeMFGTick = null;
 
-function addObjective(){
-  ["A","B"].forEach(side=>{
+function addObjective(side){
   state.scoreTracker.objectives[side].push({
     name: "",
     points: "",
     scoredAt: "",
     scores: {}
   });
-});
 
   updateUI();
 }
