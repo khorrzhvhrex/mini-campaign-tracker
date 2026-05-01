@@ -18,6 +18,8 @@ armies:{
   scoreTracker: {rounds: ["R1","R2","R3","R4","R5"], objectives: {A: [], B: []}},
 };
 
+document.title = `${state.campaignName} — Tracker`;
+
 const CONFIG = {singleMFGPerUnit: true, mfgPerArmyMin: 1, mfgPerArmyMax: 1}; 
 // 🔁 For grand campaign:
 // mfgPerArmyMin: 1,
@@ -1039,6 +1041,15 @@ function applyMFG(){
 }
 	
 function updateUI(){
+
+const guideTitle = document.getElementById("guideTitle");
+if(guideTitle){
+  guideTitle.innerText = `${state.campaignName} — User Guide`;
+}
+
+const name = state.campaignName || "Campaign";
+guideTitle.innerText = `${name} — User Guide`;
+	
  nameA.innerText=state.armies.A.name;
  nameB.innerText=state.armies.B.name;
  
