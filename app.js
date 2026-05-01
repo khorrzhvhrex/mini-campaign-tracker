@@ -1,6 +1,3 @@
-
-<script>
-
 let importTargetArmy = null;
 let editingMissionId = null;
 let pendingWinner=null;
@@ -1573,14 +1570,8 @@ function clearLocal(){
   location.reload();
 }
 
-window.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
+  loadFromLocal();
   updateUI();
 });
 
-loadFromLocal();
-
-window.addEventListener("DOMContentLoaded", () => {
-  updateUI();
-});
-updateUI();
-</script>
