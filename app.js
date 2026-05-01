@@ -870,19 +870,13 @@ function renderScoreTracker(){
     let html = `
       <table style="table-layout:fixed; width:100%;">
         <thead>
-		  <tr>
-		    <th style="width:40%;">Mission Objective</th>
-		    <th style="width:60px;">Points</th>
-		    <th style="width:120px;">Scored At</th>
-		    ${rounds.map(r => `
-		      <th style="width:60px;">
-		        ${r}
-		        <span onclick="removeBattleRound('${r}')" 
-		              style="cursor:pointer; margin-left:4px; font-size:10px;">✕</span>
-		      </th>
-		    `).join("")}
-		  </tr>
+  			<tr>
+			    <th style="width:60%;">Mission Objective</th>
+			    <th style="width:80px;">Points</th>
+			    <th style="width:160px;">Scored At</th>
+			</tr>
 		</thead>
+		
         <tbody>
     `;
 
@@ -911,13 +905,6 @@ function renderScoreTracker(){
 		           onchange="updateObjective(${i}, 'scoredAt', this.value, '${side}')">
 		  </td>
 
-		  ${rounds.map(r => `
-		    <td>
-		      <input style="width:100%; text-align:center;" 
-		             value="${obj.scores[side]?.[r] || ""}" 
-		             onchange="updateScore(${i}, '${side}', '${r}', this.value)">
-		    </td>
-		  `).join("")}
 		</tr>
       `;
     });
