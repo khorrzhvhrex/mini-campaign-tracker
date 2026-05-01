@@ -32,26 +32,34 @@ document.addEventListener("change", function(e){
   }
 });
 
-document.addEventListener("click", function(e){
-  const dropdown = document.querySelector("#topLeftMenu .dropdown");
+document.addEventListener("DOMContentLoaded", () => {
 
-  if(!dropdown.contains(e.target)){
-    dropdown.classList.remove("open");
-  }
+  document.addEventListener("click", function(e){
+    const dropdown = document.querySelector("#topLeftMenu .dropdown");
+
+    if(!dropdown) return;
+
+    if(!dropdown.contains(e.target)){
+      dropdown.classList.remove("open");
+    }
+  });
+
 });
 	
-document.querySelectorAll(".modal").forEach(modal => {
+document.addEventListener("DOMContentLoaded", () => {
 
-  modal.addEventListener("click", function(e){
+  document.querySelectorAll(".modal").forEach(modal => {
 
-    // Only trigger if clicking the background, not content
-    if(e.target === modal){
+    modal.addEventListener("click", function(e){
 
-      // Skip modals marked as critical
-      if(modal.classList.contains("no-close")) return;
+      if(e.target === modal){
 
-      modal.style.display = "none";
-    }
+        if(modal.classList.contains("no-close")) return;
+
+        modal.style.display = "none";
+      }
+
+    });
 
   });
 
