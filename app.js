@@ -18,8 +18,6 @@ armies:{
   scoreTracker: {rounds: ["R1","R2","R3","R4","R5"], objectives: {A: [], B: []}},
 };
 
-document.title = `${state.campaignName} — Tracker`;
-
 const CONFIG = {singleMFGPerUnit: true, mfgPerArmyMin: 1, mfgPerArmyMax: 1}; 
 // 🔁 For grand campaign:
 // mfgPerArmyMin: 1,
@@ -1044,19 +1042,21 @@ function updateUI(){
 
 const guideTitle = document.getElementById("guideTitle");
 if(guideTitle){
-  guideTitle.innerText = `${state.campaignName} — User Guide`;
+  const name = state.campaignName || "Campaign";
+  guideTitle.innerText = `${name} — User Guide`;
 }
 
 const name = state.campaignName || "Campaign";
 guideTitle.innerText = `${name} — User Guide`;
 	
- nameA.innerText=state.armies.A.name;
- nameB.innerText=state.armies.B.name;
- 
- document.getElementById("campaignTitle").innerText = state.campaignName;
+nameA.innerText=state.armies.A.name;
+nameB.innerText=state.armies.B.name;
+	
+document.getElementById("campaignTitle").innerText = state.campaignName;
+document.title = `${state.campaignName} — Tracker`;
 
- exportA.innerText=`Export ${state.armies.A.name} Units`;
- exportB.innerText=`Export ${state.armies.B.name} Units`;
+exportA.innerText=`Export ${state.armies.A.name} Units`;
+exportB.innerText=`Export ${state.armies.B.name} Units`;
 
 barA.style.width = (state.armies.A.score/6*100) + "%";
 barB.style.width = (state.armies.B.score/6*100) + "%";
