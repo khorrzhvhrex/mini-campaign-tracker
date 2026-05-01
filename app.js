@@ -1578,5 +1578,9 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 loadFromLocal();
+
+window.addEventListener("DOMContentLoaded", () => {
+  updateUI();
+});
 updateUI();
 </script>
