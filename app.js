@@ -82,8 +82,7 @@ function closeGuideModal(){
 }
 
 function autoGrow(el){
-  el.style.height = "auto";
-  el.style.overflow = "hidden";
+  el.style.height = "0px";
   el.style.height = el.scrollHeight + "px";
 }
 
@@ -869,7 +868,7 @@ function renderScoreTracker(){
 
   function buildTable(side){
     let html = `
-      <table style="table-layout:fixed; width:100%;">
+      <table style="width:100%;">
         <thead>
   			<tr>
 			    <th style="width:60%;">Mission Objective</th>
