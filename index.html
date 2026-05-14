@@ -33,6 +33,18 @@
   Enter Campaign Name
 </h1>
 
+<div id="saveLoadUI">
+
+  <button onclick="openGuideModal()">User Guide</button>
+	
+  <button onclick="openClearModal()">Clear Data</button>
+	
+  <button onclick="exportJSON()">Export Campaign Data</button>
+
+  <input id="fileInput" type="file" accept=".json,application/json" hidden onchange="handleImport(event)">
+  <button onclick="fileInput.click()">Import Campaign Data</button>
+</div>
+	
 <div class="bar large-bar">
   <div id="leftFill" class="large-fill"></div>
   <div id="rightFill" class="large-fill"></div>
@@ -168,18 +180,6 @@
 </h2>
 
 <div id="log" class="log"></div>
-
-<div id="saveLoadUI">
-
-  <button onclick="openGuideModal()">User Guide</button>
-	
-  <button onclick="openClearModal()">Clear Data</button>
-	
-  <button onclick="exportJSON()">Export Campaign Data</button>
-
-  <input id="fileInput" type="file" accept=".json,application/json" hidden onchange="handleImport(event)">
-  <button onclick="fileInput.click()">Import Campaign Data</button>
-</div>
 
 <!-- CLEAR DATA MODAL -->
 <div class="modal" id="clearDataModal">
