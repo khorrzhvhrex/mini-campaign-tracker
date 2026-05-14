@@ -1038,9 +1038,6 @@ if(guideTitle){
   const name = state.campaignName || "Campaign";
   guideTitle.innerText = `${name} — User Guide`;
 }
-
-const name = state.campaignName || "Campaign";
-guideTitle.innerText = `${name} — User Guide`;
 	
 nameA.innerText=state.armies.A.name;
 nameB.innerText=state.armies.B.name;
@@ -1437,7 +1434,14 @@ function renderLog(){
       <br><strong>Victor:</strong> ${winnerName}
       <br><em>${m.narrative || ""}</em>
 
-	  <div style="margin-top:8px; font-size:13px; opacity:0.9;">
+	  <div style="
+  		margin-top:10px;
+  		padding:8px;
+  		border:1px solid #444;
+  		background:rgba(255,255,255,0.03);
+  		font-size:13px;
+  		line-height:1.4;
+	  ">
 
   	  	<div style="margin-top:6px;">
     		<strong>${state.armies.A.name}</strong>
@@ -1540,7 +1544,7 @@ function handleImport(e){
 
 	  // ✅ ensure scoreTracker exists on imported files
 	  if(!state.scoreTracker){
-	 	state.scoreTracker = { rounds: [], objectives: [] };
+	 	state.scoreTracker = {rounds: [], objectives: { A: [], B: [] }};
 	  }
 
         ["A","B"].forEach(side=>{
