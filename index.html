@@ -37,14 +37,42 @@
 
 <div id="saveLoadUI">
 
-  <button onclick="openGuideModal()">User Guide</button>
-	
-  <button onclick="openClearModal()">Clear Data</button>
-	
-  <button onclick="exportJSON()">Export Campaign Data</button>
+  <div class="dropdown" id="utilitiesDropdown">
 
-  <input id="fileInput" type="file" accept=".json,application/json" hidden onchange="handleImport(event)">
-  <button onclick="fileInput.click()">Import Campaign Data</button>
+    <button onclick="toggleUtilitiesDropdown(event)">
+      Utilities ▼
+    </button>
+
+    <div class="dropdown-content">
+
+      <a href="#" onclick="openGuideModal()">
+        User Guide
+      </a>
+
+      <a href="#" onclick="openClearModal()">
+        Clear Data
+      </a>
+
+      <a href="#" onclick="exportJSON()">
+        Export Campaign Data
+      </a>
+
+      <a href="#" onclick="fileInput.click()">
+        Import Campaign Data
+      </a>
+
+    </div>
+
+  </div>
+
+  <input
+    id="fileInput"
+    type="file"
+    accept=".json,application/json"
+    hidden
+    onchange="handleImport(event)"
+  >
+
 </div>
 
 </div>
