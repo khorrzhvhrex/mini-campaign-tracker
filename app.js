@@ -1407,6 +1407,15 @@ function closeMissionModal(){
   document.getElementById("modal").style.display = "none";
 }
 
+function getUnitNames(ids, side){
+  if(!ids || ids.length === 0) return "None";
+
+  return ids.map(id => {
+    const unit = state.armies[side].units.find(u => u.id === id);
+    return unit ? unit.name : "Unknown Unit";
+  }).join(", ");
+}
+
 function renderLog(){
   const logEl = document.getElementById("log");
 
@@ -1427,6 +1436,35 @@ function renderLog(){
 	  <strong>${m.date}</strong> — ${m.name} (${m.score})
       <br><strong>Victor:</strong> ${winnerName}
       <br><em>${m.narrative || ""}</em>
+
+	  <div style="margin-top:8px; font-size:13px; opacity:0.9;">
+
+  	  	<div style="margin-top:6px;">
+    		<strong>${state.armies.A.name}</strong>
+
+    		<br>
+    		<span style="opacity:0.7;">Survivors:</span>
+    		${getUnitNames(m.survivors?.A, "A")}
+
+    		<br>
+    		<span style="opacity:0.7;">Marked for Greatness:</span>
+    		${getUnitNames(m.mfg?.A, "A")}
+ 		</div>
+
+  		<div style="margin-top:6px;">
+    		<strong>${state.armies.B.name}</strong>
+
+    		<br>
+    		<span style="opacity:0.7;">Survivors:</span>
+    		${getUnitNames(m.survivors?.B, "B")}
+
+    		<br>
+    		<span style="opacity:0.7;">Marked for Greatness:</span>
+    		${getUnitNames(m.mfg?.B, "B")}
+  		</div>
+
+	  </div>
+	  
       <div style="margin-top:6px; display:flex; gap:6px;">
   		<button onclick="editMission(${m.id})">Edit</button>
  		<button onclick="deleteMission(${m.id})">Delete</button>
