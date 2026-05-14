@@ -86,6 +86,20 @@ function autoGrow(el){
   el.style.height = el.scrollHeight + "px";
 }
 
+function toggleUtilitiesDropdown(event){
+  event.stopPropagation();
+
+  document
+    .getElementById("utilitiesDropdown")
+    .classList.toggle("open");
+}
+
+document.addEventListener("click", () => {
+  document
+    .getElementById("utilitiesDropdown")
+    ?.classList.remove("open");
+});
+
 function clearBattleLog(){
   if(!confirm("Clear all battle log entries?")) return;
 
