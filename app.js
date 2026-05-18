@@ -136,18 +136,11 @@ function clearAllData(){
     battleCount: 0,
     battleHistory: [],
     missions: [],
-    campaignName: "<Campaign Name>",
+    campaignName: "<Enter Campaign Name>",
     armies: {
-      A: { name: "<Army Name>", score: 0, units: [], color: "#ff0000", sigil: "", mfgTicks: [false,false,false] },
-      B: { name: "<Army Name>", score: 0, units: [], color: "#0000ff", sigil: "", mfgTicks: [false,false,false] }
+      A: { name: "<Enter Army Name>", score: 0, units: [], color: "#ff0000", sigil: "", mfgTicks: [false,false,false] },
+      B: { name: "<Enter Army Name>", score: 0, units: [], color: "#0000ff", sigil: "", mfgTicks: [false,false,false] }
     },
-	scoreTracker: {
-  rounds: [],
-  objectives: {
-    A: [],
-    B: []
-  }
-}
   };
 
   updateUI();
