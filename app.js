@@ -353,6 +353,16 @@ function buildCheckboxes(){
   container.innerHTML = html;
 }
 
+function renderBattleScoreTracker(){
+
+  document.getElementById("scoreTrackerA").innerHTML =
+    "<div>Score tracker coming online...</div>";
+
+  document.getElementById("scoreTrackerB").innerHTML =
+    "<div>Score tracker coming online...</div>";
+
+}
+
 function getFutureDate(){
   const now = new Date();
   const y = now.getFullYear() + 37000;
@@ -977,6 +987,7 @@ rightFill.style.animation = `bronzePulse ${pulseSpeed}s ease-in-out infinite`;
 
 renderUnits();
 renderLog();
+renderBattleScoreTracker();
 	
 // ✅ Recalculate MFG tick usage from missions
 ["A","B"].forEach(side=>{
