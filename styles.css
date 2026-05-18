@@ -44,6 +44,9 @@ table {margin-top: var(--space-sm);}
 }.large-fill {position:absolute;height:100%;width:0%;background:linear-gradient(145deg,#8a6a3a,#4f3a1f);transition:width 0.4s ease,left 0.4s ease,box-shadow 0.4s ease;}
 .center { position:absolute; left:50%; width:2px; background:#fff; top:0; bottom:0; }
 table { width:100%; border-collapse:collapse; margin-top:10px; }
+#liveTotals {display:flex; justify-content:center; align-items:center; gap:30px; margin-top:20px; margin-bottom:20px; font-family:"Orbitron", sans-serif;}
+.live-total {font-size:42px; padding:10px 24px; border:1px solid #444; background:rgba(0,0,0,0.5); box-shadow: 0 0 10px rgba(205,127,50,0.6), 0 0 20px rgba(205,127,50,0.25);}
+.live-total-divider {opacity:0.5; font-size:20px;}
 th[title] {cursor: help;}
 td,th { border:1px solid #444; padding:4px; text-align:center; }
 th[onclick] {cursor:pointer;}
