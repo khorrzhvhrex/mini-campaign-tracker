@@ -355,27 +355,156 @@ function buildCheckboxes(){
 
 function renderBattleScoreTracker(){
 
-	document.getElementById("scoreTrackerA").innerHTML = `
-	  <button onclick="addObjective('A')">
-	    Add Objective
-	  </button>
+  renderTrackerSide("A");
 
-	  <button onclick="addAgenda('A')">
-	    Add Agenda
-	  </button>
-	`;
+  renderTrackerSide("B");
 
-	document.getElementById("scoreTrackerB").innerHTML = `
-	  <button onclick="addObjective('B')">
-	    Add Objective
-	  </button>
+}
 
-	  <button onclick="addAgenda('B')">
-	    Add Agenda
-	  </button>
-	`;
+function renderTrackerSide(side){
 
-	}
+  const tracker =
+    document.getElementById(`scoreTracker${side}`);
+
+  const objectives =
+    state.battleScore.objectives[side];
+
+  const agendas =
+    state.battleScore.agendas[side];
+
+  tracker.innerHTML = `
+
+    <table>
+
+      <thead>
+
+        <tr>
+          <th>Objective</th>
+          <th>Pts</th>
+          <th>Scored At</th>
+          <th>Global</th>
+
+          ${state.battleScore.rounds.map(r=>`
+            <th>${r}</th>
+          `).join("")}
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        ${objectives.map((o,index)=>`
+
+          <tr>
+
+            <td>
+              <input
+                value="${o.text}"
+                onchange="
+                  updateObjectiveField(
+                    '${side}',
+                    ${index},
+                    'text',
+                    this.value
+                  )
+                "
+              >
+            </td>
+
+            <td>
+              <input
+                type="number"
+                value="${o.points}"
+                onchange="
+                  updateObjectiveField(
+                    '${side}',
+                    ${index},
+                    'points',
+                    this.value
+                  )
+                "
+              >
+            </td>
+
+            <td>
+              <input
+                value="${o.scoredAt}"
+                onchange="
+                  updateObjectiveField(
+                    '${side}',
+                    ${index},
+                    'scoredAt',
+                    this.value
+                  )
+                "
+              >
+            </td>
+
+            <td>
+
+              <input
+                type="checkbox"
+
+                ${o.global ? "checked" : ""}
+
+                onchange="
+                  toggleGlobalObjective(
+                    '${side}',
+                    ${index},
+                    this.checked
+                  )
+                "
+              >
+
+            </td>
+
+            ${state.battleScore.rounds.map(round=>`
+
+              <td>
+
+                <input
+                  type="number"
+
+                  value="${o.scores[round] || 0}"
+
+                  onchange="
+                    updateObjectiveScore(
+                      '${side}',
+                      ${index},
+                      '${round}',
+                      this.value
+                    )
+                  "
+                >
+
+              </td>
+
+            `).join("")}
+
+          </tr>
+
+        `).join("")}
+
+      </tbody>
+
+    </table>
+
+    <div class="center-buttons">
+
+      <button onclick="addObjective('${side}')">
+        Add Objective
+      </button>
+
+      <button onclick="addAgenda('${side}')">
+        Add Agenda
+      </button>
+
+    </div>
+
+  `;
+
+}
 
 function addObjective(side){
 
