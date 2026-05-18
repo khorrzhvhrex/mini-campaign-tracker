@@ -15,7 +15,6 @@ armies:{
 },
  missions:[],
   campaignName: "<Enter Campaign Name>",
-  scoreTracker: {rounds: [], objectives: {A: [], B: []}},
 };
 
 const CONFIG = {singleMFGPerUnit: true, mfgPerArmyMin: 1, mfgPerArmyMax: 1}; 
@@ -791,168 +790,6 @@ function removeUnit(side,id){
 let activeMFGSide = null;
 let activeMFGTick = null;
 
-function addObjective(side){
-  state.scoreTracker.objectives[side].push({
-    name: "",
-    points: "",
-    scoredAt: "",
-    scores: {}
-  });
-
-  updateUI();
-}
-
-function addBattleRound(){
-  const rounds = state.scoreTracker.rounds;
-  const next = "R" + (rounds.length + 1);
-  rounds.push(next);
-
-  updateUI();
-}
-
-function removeObjective(index, side){
-  state.scoreTracker.objectives[side].splice(index, 1);
-
-  if(state.scoreTracker.objectives[side].length === 0){
-    state.scoreTracker.objectives[side].push({
-      name: "",
-      points: "",
-      scoredAt: "",
-      scores: {}
-    });
-  }
-
-  updateUI();
-}
-
-function removeBattleRound(round){
-
-  const rounds = state.scoreTracker.rounds;
-  if(rounds.length === 0) return;
-
-  state.scoreTracker.rounds = rounds.filter(r => r !== round);
-
-  ["A","B"].forEach(side=>{
-    state.scoreTracker.objectives[side].forEach(obj=>{
-      if(obj.scores){
-        delete obj.scores[side]?.[round];
-      }
-    });
-  });
-
-  updateUI();
-}
-
-function renderScoreTracker(){
-
-  // ✅ SAFETY: ensure structure always exists
-  if(!state.scoreTracker){
-    state.scoreTracker = {
-      rounds: [],
-      objectives: { A: [], B: [] }
-    };
-  }
-
-  // ✅ MIGRATION: fix old saved data
-  if(Array.isArray(state.scoreTracker.objectives)){
-    state.scoreTracker.objectives = {
-      A: [],
-      B: []
-    };
-  }
-  const { rounds } = state.scoreTracker;
-
-  // ✅ ensure at least one row exists
-  ["A","B"].forEach(side=>{
-  if(state.scoreTracker.objectives[side].length === 0){
-    state.scoreTracker.objectives[side].push({
-      name: "",
-      points: "",
-      scoredAt: "",
-      scores: {}
-    });
-  }
-});
-
-  // ✅ SAFETY: ensure DOM exists before rendering
-  const elA = document.getElementById("scoreTrackerA");
-  const elB = document.getElementById("scoreTrackerB");
-
-  if(!elA || !elB) return;
-
-  function buildTable(side){
-    let html = `
-      <table style="width:100%;">
-        <thead>
-  			<tr>
-			    <th style="width:60%;">Mission Objective</th>
-			    <th style="width:80px;">Points</th>
-			    <th style="width:160px;">Scored At</th>
-			</tr>
-		</thead>
-		
-        <tbody>
-    `;
-
-    const objectives = state.scoreTracker.objectives[side];
-
-	objectives.forEach((obj, i)=>{
-      html += `
-        <tr>
-		  <td>
-		    <div style="display:flex; align-items:flex-start; gap:4px;">
-		      <textarea 
-  				style="width:100%; resize:none; overflow:hidden; box-sizing:border-box;"
-			    oninput="autoGrow(this)" 
-			    onchange="updateObjective(${i}, 'name', this.value, '${side}')"
-			  >${obj.name || ""}</textarea>
-		      <button onclick="removeObjective(${i}, '${side}')" style="font-size:10px; height:22px; padding:0 6px;">✕</button>
-		    </div>
-		  </td>
-
-		  <td>
-		    <input style="width:100%; text-align:center;" 
-		           value="${obj.points}" 
-		           onchange="updateObjective(${i}, 'points', this.value, '${side}')">
-		  </td>
-
-		  <td>
-		    <input style="width:100%;" 
-		           value="${obj.scoredAt}" 
-		           onchange="updateObjective(${i}, 'scoredAt', this.value, '${side}')">
-		  </td>
-
-		</tr>
-      `;
-    });
-
-    html += `</tbody></table>`;
-    return html;
-  }
-
-  document.getElementById("scoreTrackerA").innerHTML = buildTable("A");
-  document.getElementById("scoreTrackerB").innerHTML = buildTable("B");
-
-  requestAnimationFrame(()=>{
-    document.querySelectorAll("#scoreTrackerA textarea, #scoreTrackerB textarea")
-      .forEach(autoGrow);
-  });
-}
-
-function updateObjective(index, field, value, side){
-  state.scoreTracker.objectives[side][index][field] = value;
-  saveToLocal();
-}
-
-function updateScore(index, side, round, value){
-  if(!state.scoreTracker.objectives[side][index].scores[side]){
-    state.scoreTracker.objectives[side][index].scores[side] = {};
-  }
-
-  state.scoreTracker.objectives[side][index].scores[side][round] = value;
-  saveToLocal();
-}
-
 function openMFGTargets(side, tickIndex){
 
   activeMFGSide = side;
@@ -1145,8 +982,7 @@ rightFill.style.animation = `bronzePulse ${pulseSpeed}s ease-in-out infinite`;
 
 renderUnits();
 renderLog();
-renderScoreTracker();
-
+	
 // ✅ Recalculate MFG tick usage from missions
 ["A","B"].forEach(side=>{
   state.armies[side].mfgTicks = [false,false,false];
