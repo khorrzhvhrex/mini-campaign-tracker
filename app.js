@@ -9,13 +9,15 @@ let editingUnitId = null;
 let state={
  battleCount:0,
  battleHistory:[],
-armies:{
+ armies:{
   A:{name:"<Enter Army Name>",score:0,units:[],color:"#ff0000", sigil:"", mfgTicks: [false, false, false]},
-  B:{name:"<Enter Army Name>",score:0,units:[],color:"#0000ff", sigil:"", mfgTicks: [false, false, false]}
-},
+  B:{name:"<Enter Army Name>",score:0,units:[],color:"#0000ff", sigil:"", mfgTicks: [false, false, false]}},
  missions:[],
-  campaignName: "<Enter Campaign Name>",
-};
+ campaignName: "<Enter Campaign Name>",
+ battleScore: {
+  rounds: ["R1", "R2", "R3", "R4", "R5"],
+  objectives: {A: [], B: []},
+  agendas: {A: [], B: []}}};
 
 const CONFIG = {singleMFGPerUnit: true, mfgPerArmyMin: 1, mfgPerArmyMax: 1}; 
 // 🔁 For grand campaign:
