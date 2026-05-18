@@ -355,11 +355,79 @@ function buildCheckboxes(){
 
 function renderBattleScoreTracker(){
 
-  document.getElementById("scoreTrackerA").innerHTML =
-    "<div>Score tracker coming online...</div>";
+	document.getElementById("scoreTrackerA").innerHTML = `
+	  <button onclick="addObjective('A')">
+	    Add Objective
+	  </button>
 
-  document.getElementById("scoreTrackerB").innerHTML =
-    "<div>Score tracker coming online...</div>";
+	  <button onclick="addAgenda('A')">
+	    Add Agenda
+	  </button>
+	`;
+
+	document.getElementById("scoreTrackerB").innerHTML = `
+	  <button onclick="addObjective('B')">
+	    Add Objective
+	  </button>
+
+	  <button onclick="addAgenda('B')">
+	    Add Agenda
+	  </button>
+	`;
+
+	}
+
+function addObjective(side){
+
+  state.battleScore.objectives[side].push({
+
+    id: Date.now(),
+
+    text: "",
+
+    points: 0,
+
+    scoredAt: "",
+
+    global: false,
+
+    scores: {
+      R1: 0,
+      R2: 0,
+      R3: 0,
+      R4: 0,
+      R5: 0
+    }
+
+  });
+
+  renderBattleScoreTracker();
+
+  saveToLocal();
+
+}
+
+function addAgenda(side){
+
+  state.battleScore.agendas[side].push({
+
+    id: Date.now(),
+
+    text: "",
+
+    scores: {
+      R1: 0,
+      R2: 0,
+      R3: 0,
+      R4: 0,
+      R5: 0
+    }
+
+  });
+
+  renderBattleScoreTracker();
+
+  saveToLocal();
 
 }
 
