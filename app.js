@@ -1659,6 +1659,26 @@ function loadFromLocal(){
   try{
     state = JSON.parse(data);
 
+	  if(!state.battleScore){
+
+  state.battleScore = {
+
+    rounds: ["R1","R2","R3","R4","R5"],
+
+    objectives: {
+      A: [],
+      B: []
+    },
+
+    agendas: {
+      A: [],
+      B: []
+    }
+
+  };
+
+}
+
     // ✅ ensure mfgTicks always exists
     ["A","B"].forEach(side=>{
       if(!state.armies[side].mfgTicks){
