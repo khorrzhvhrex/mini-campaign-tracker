@@ -130,6 +130,12 @@
   <div class="center-buttons">
     <button id="exportA" onclick="exportArmy('A')"></button>
   </div>
+
+<hr>
+
+<h3>Battle Score Tracker</h3>
+
+<div id="scoreTrackerA"></div>
 	
 </div>
 
@@ -178,20 +184,32 @@
   <div class="center-buttons">
     <button id="exportB" onclick="exportArmy('B')"></button>
   </div>
+
+<hr>
+
+<h3>Battle Score Tracker</h3>
+
+<div id="scoreTrackerB"></div>
 	
 </div>
 
 </div>
 
-<!-- LIVE SCORE TRACKER 
-	
-<div>
-	
-	<div class="center-buttons">
-		<button onclick="addBattleRound()">Add Battle Round</button>
-	</div>
-	
-</div> -->
+<div id="liveTotals">
+
+<!-- LIVE SCORE -->
+
+  <div class="live-total">
+    <span id="totalA">0</span>
+  </div>
+
+  <div class="live-total-divider">VS</div>
+
+  <div class="live-total">
+    <span id="totalB">0</span>
+  </div>
+
+</div>
 
 <!-- BATTLE LOG -->
 
