@@ -33,16 +33,14 @@ body {text-align:center; font-family: "Rajdhani", sans-serif;}
 table {margin-top: var(--space-sm);}
 #battleLogTitle {margin: var(--space-lg) 0 var(--space-sm) 0;}
 #battleLogTitle + .center-buttons {margin-bottom: var(--space-sm);}
-#log {margin-top: var(--space-sm);}
-#log {max-height: 70vh; overflow-y: auto; padding-right: 6px;}
 .modal-content > * {margin-bottom: var(--space-sm);}
 .modal-content > *:last-child {margin-bottom: 0;}
 .container { display:flex; gap:10px; }
 .army { width:50%; border:1px solid #444; padding:10px; }
 .center-buttons { text-align:center; }
 .bar { height:20px; background:#333; margin:10px 0; position:relative; overflow:hidden; }
-.large-bar {background: radial-gradient(circle at 50% 50%, rgba(205, 127, 50, 0.6) 10%,   /* bright bronze center */ rgba(120, 70, 30, 0.5) 30%, rgba(40, 25, 10, 0.9) 60%, rgba(15, 10, 5, 1) 100%);
-}.large-fill {position:absolute;height:100%;width:0%;background:linear-gradient(145deg,#8a6a3a,#4f3a1f);transition:width 0.4s ease,left 0.4s ease,box-shadow 0.4s ease;}
+.large-bar {background: radial-gradient(circle at 50% 50%, rgba(205, 127, 50, 0.6) 10%,   /* bright bronze center */ rgba(120, 70, 30, 0.5) 30%, rgba(40, 25, 10, 0.9) 60%, rgba(15, 10, 5, 1) 100%);}
+.large-fill {position:absolute;height:100%;width:0%;background:linear-gradient(145deg,#8a6a3a,#4f3a1f);transition:width 0.4s ease,left 0.4s ease,box-shadow 0.4s ease;}
 .center { position:absolute; left:50%; width:2px; background:#fff; top:0; bottom:0; }
 table { width:100%; border-collapse:collapse; margin-top:10px; }
 #liveTotals {display:flex; justify-content:center; align-items:center; gap:30px; margin-top:20px; margin-bottom:20px; font-family:"Orbitron", sans-serif;}
@@ -55,8 +53,9 @@ th[onclick]:hover {text-shadow:0 0 6px rgba(150,0,0,0.6);}
 th[onclick]::after {content: " ⓘ"; opacity: 0.5; font-size: 10px;}
 tr:hover {background: rgba(255,255,255,0.05);}
 .hidden { display:none; }
-.log {max-height:2px; overflow-y:auto; overflow-x:hidden; border:1px solid #444; padding:5px; transition:max-height 0.25s ease, opacity 0.2s ease; opacity:0.9;}
-.log.open {max-height:500px; opacity:1;}
+.log {max-height: 2px; overflow-y: auto; overflow-x: hidden; border: 1px solid #444; padding: 5px 10px 5px 5px; transition: max-height 0.25s ease, opacity 0.2s ease; opacity: 0.9;}
+.log.open {max-height: 75vh; opacity: 1;}
+#log {margin-top: var(--space-sm);}
 .modal { position:fixed; inset:0; background:rgba(0,0,0,.8); display:none; justify-content:center; align-items:center; }
 .modal-content { background:#222; padding:20px; width:600px; max-height:80vh; overflow:auto; border: 1px solid #444; box-shadow: 0 0 12px #cd7f32, 0 0 30px rgba(205,127,50,0.4);}
 .modal-columns {display: flex; gap: 40px;}
