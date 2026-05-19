@@ -637,15 +637,56 @@ function syncGlobalObjective(
   const targetSide =
     sourceSide === "A" ? "B" : "A";
 
+  const sourceObjective =
+    state.battleScore
+      .objectives[sourceSide][index];
+
+  const targetObjective =
+    state.battleScore
+      .objectives[targetSide][index];
+
+  if(!targetObjective){
+
+    state.battleScore
+      .objectives[targetSide][index] = {
+
+        id: Date.now(),
+
+        text: "",
+
+        points: 0,
+
+        scoredAt: "",
+
+        global: true,
+
+        scores: {
+          R1: 0,
+          R2: 0,
+          R3: 0,
+          R4: 0,
+          R5: 0
+        }
+
+      };
+
+  }
+
   state.battleScore
-    .objectives[targetSide][index] =
+    .objectives[targetSide][index]
+    .text = sourceObjective.text;
 
-    structuredClone(
+  state.battleScore
+    .objectives[targetSide][index]
+    .points = sourceObjective.points;
 
-      state.battleScore
-        .objectives[sourceSide][index]
+  state.battleScore
+    .objectives[targetSide][index]
+    .scoredAt = sourceObjective.scoredAt;
 
-    );
+  state.battleScore
+    .objectives[targetSide][index]
+    .global = sourceObjective.global;
 
   renderBattleScoreTracker();
 
