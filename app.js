@@ -359,6 +359,8 @@ function renderBattleScoreTracker(){
 
   renderTrackerSide("B");
 
+  updateLiveTotals();
+
 }
 
 function renderTrackerSide(side){
@@ -557,6 +559,128 @@ function addAgenda(side){
   renderBattleScoreTracker();
 
   saveToLocal();
+
+}
+
+function updateObjectiveField(
+  side,
+  index,
+  field,
+  value
+){
+
+  state.battleScore
+    .objectives[side][index][field] = value;
+
+  if(
+    state.battleScore
+      .objectives[side][index]
+      .global
+  ){
+    syncGlobalObjective(index, side);
+  }
+
+  saveToLocal();
+
+}
+
+function updateObjectiveScore(
+  side,
+  index,
+  round,
+  value
+){
+
+  state.battleScore
+    .objectives[side][index]
+    .scores[round] = Number(value);
+
+  if(
+    state.battleScore
+      .objectives[side][index]
+      .global
+  ){
+    syncGlobalObjective(index, side);
+  }
+
+  updateLiveTotals();
+
+  saveToLocal();
+
+}
+
+function toggleGlobalObjective(
+  side,
+  index,
+  checked
+){
+
+  state.battleScore
+    .objectives[side][index]
+    .global = checked;
+
+  if(checked){
+    syncGlobalObjective(index, side);
+  }
+
+  renderBattleScoreTracker();
+
+  saveToLocal();
+
+}
+
+function syncGlobalObjective(
+  index,
+  sourceSide
+){
+
+  const targetSide =
+    sourceSide === "A" ? "B" : "A";
+
+  state.battleScore
+    .objectives[targetSide][index] =
+
+    structuredClone(
+
+      state.battleScore
+        .objectives[sourceSide][index]
+
+    );
+
+  renderBattleScoreTracker();
+
+}
+
+function calculateBattleTotal(side){
+
+  let total = 0;
+
+  state.battleScore
+    .objectives[side]
+    .forEach(o=>{
+
+      Object.values(o.scores)
+        .forEach(v=>{
+
+          total += Number(v || 0);
+
+        });
+
+    });
+
+  return total;
+
+}
+
+function updateLiveTotals(){
+
+  document.getElementById("totalA")
+    .textContent =
+      calculateBattleTotal("A");
+
+  document.getElementById("totalB")
+    .textContent =
+      calculateBattleTotal("B");
 
 }
 
