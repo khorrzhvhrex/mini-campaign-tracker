@@ -34,6 +34,7 @@ table {margin-top: var(--space-sm);}
 #battleLogTitle {margin: var(--space-lg) 0 var(--space-sm) 0;}
 #battleLogTitle + .center-buttons {margin-bottom: var(--space-sm);}
 #log {margin-top: var(--space-sm);}
+#log {max-height: 70vh; overflow-y: auto; padding-right: 6px;}
 .modal-content > * {margin-bottom: var(--space-sm);}
 .modal-content > *:last-child {margin-bottom: 0;}
 .container { display:flex; gap:10px; }
