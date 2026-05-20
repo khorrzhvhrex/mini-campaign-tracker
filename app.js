@@ -414,24 +414,24 @@ function renderTrackerSide(side){
 
       <tbody>
 
-        ${objectives.map((o,index)=>`
-
-		  <td>
-
-			  <button
-  			  onclick="
-    			  removeObjective(
-      			  '${side}',
-        		  ${index}
-    			  )
-  			  "
-			  >
-  				  X
-			  </button>
-
-		  </td>
-
-          <tr>
+		${objectives.map((o,index)=>`
+		
+		  <tr>
+		
+		    <td>
+		
+		      <button
+		        onclick="
+		          removeObjective(
+		            '${side}',
+		            ${index}
+		          )
+		        "
+		      >
+		        X
+		      </button>
+		
+		    </td>
 
             <td>
               <input
