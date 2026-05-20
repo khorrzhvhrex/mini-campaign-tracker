@@ -638,6 +638,14 @@ function renderTrackerSide(side){
         Add Agenda
       </button>
 
+	  <button
+		  onclick="
+		    clearAgendas('${side}')
+		  "
+		>
+		  Clear Agendas
+		</button>
+
     </div>
 
   `;
@@ -893,6 +901,52 @@ function updateLiveTotals(){
   document.getElementById("totalB")
     .textContent =
       calculateBattleTotal("B");
+
+}
+
+function updateAgendaField(
+  side,
+  index,
+  field,
+  value
+){
+
+  state.battleScore
+    .agendas[side][index][field] = value;
+
+  saveToLocal();
+
+}
+
+function removeAgenda(
+  side,
+  index
+){
+
+  state.battleScore
+    .agendas[side]
+    .splice(index, 1);
+
+  renderBattleScoreTracker();
+
+  saveToLocal();
+
+}
+
+function clearAgendas(side){
+
+  const confirmed = confirm(
+    "Clear all agendas?"
+  );
+
+  if(!confirmed) return;
+
+  state.battleScore
+    .agendas[side] = [];
+
+  renderBattleScoreTracker();
+
+  saveToLocal();
 
 }
 
