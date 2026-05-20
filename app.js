@@ -376,7 +376,19 @@ function renderTrackerSide(side){
 
   tracker.innerHTML = `
 
-    <table>
+    <table class="score-table">
+	<colgroup>
+
+	  <col class="objective-col">
+	  <col class="points-col">
+	  <col class="scoredat-col">
+	  <col class="global-col">
+
+	  ${state.battleScore.rounds.map(()=>`
+	    <col class="round-col">
+	  `).join("")}
+
+	</colgroup>
 
       <thead>
 
