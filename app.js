@@ -541,6 +541,99 @@ function renderTrackerSide(side){
 
 	</div>
 
+	<br>
+	
+	<table class="agenda-table">
+	
+	  <colgroup>
+	
+	    <col class="delete-col">
+	
+	    <col class="agenda-col">
+	
+	    <col class="details-col">
+	
+	  </colgroup>
+	
+	  <thead>
+	
+	    <tr>
+	
+	      <th>X</th>
+	
+	      <th>Agenda</th>
+	
+	      <th>Details</th>
+	
+	    </tr>
+	
+	  </thead>
+	
+	  <tbody>
+	
+	    ${agendas.map((a,index)=>`
+	
+	      <tr>
+	
+	        <td>
+	
+	          <button
+	            onclick="
+	              removeAgenda(
+	                '${side}',
+	                ${index}
+	              )
+	            "
+	          >
+	            X
+	          </button>
+	
+	        </td>
+	
+	        <td>
+	
+	          <input
+	            value="${a.title}"
+	
+	            onchange="
+	              updateAgendaField(
+	                '${side}',
+	                ${index},
+	                'title',
+	                this.value
+	              )
+	            "
+	          >
+	
+	        </td>
+	
+	        <td>
+	
+	          <input
+	            value="${a.details}"
+	
+	            onchange="
+	              updateAgendaField(
+	                '${side}',
+	                ${index},
+	                'details',
+	                this.value
+	              )
+	            "
+	          >
+	
+	        </td>
+	
+	      </tr>
+	
+	    `).join("")}
+	
+	  </tbody>
+	
+	</table>
+
+    <div class="center-buttons">
+
       <button onclick="addAgenda('${side}')">
         Add Agenda
       </button>
@@ -622,21 +715,17 @@ function clearScoreTracker(side){
 
 function addAgenda(side){
 
-  state.battleScore.agendas[side].push({
-
-    id: Date.now(),
-
-    text: "",
-
-    scores: {
-      R1: 0,
-      R2: 0,
-      R3: 0,
-      R4: 0,
-      R5: 0
-    }
-
-  });
+	state.battleScore.agendas[side].push({
+	
+	  id: Date.now(),
+	
+	  agendaId: "",
+	
+	  title: "",
+	
+	  details: ""
+	
+	});
 
   renderBattleScoreTracker();
 
