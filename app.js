@@ -378,16 +378,21 @@ function renderTrackerSide(side){
 
     <table class="score-table">
 	<colgroup>
-
+	
+	  <col class="delete-col">
+	
 	  <col class="objective-col">
+	
 	  <col class="points-col">
+	
 	  <col class="scoredat-col">
+	
 	  <col class="global-col">
-
+	
 	  ${state.battleScore.rounds.map(()=>`
 	    <col class="round-col">
 	  `).join("")}
-
+	
 	</colgroup>
 
       <thead>
