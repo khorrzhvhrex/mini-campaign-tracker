@@ -541,7 +541,7 @@ function renderTrackerSide(side){
 
 	</div>
 
-	<br>
+	<div style="height:6px;"></div>
 	
 	<table class="agenda-table">
 	
