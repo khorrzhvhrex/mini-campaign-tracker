@@ -393,6 +393,7 @@ function renderTrackerSide(side){
       <thead>
 
         <tr>
+		  <th>X</th>
           <th>Objective</th>
           <th>Pts</th>
           <th>Scored At</th>
@@ -409,6 +410,21 @@ function renderTrackerSide(side){
       <tbody>
 
         ${objectives.map((o,index)=>`
+
+		  <td>
+
+			  <button
+  			  onclick="
+    			  removeObjective(
+      			  '${side}',
+        		  ${index}
+    			  )
+  			  "
+			  >
+  				  X
+			  </button>
+
+		  </td>
 
           <tr>
 
@@ -510,6 +526,16 @@ function renderTrackerSide(side){
         Add Objective
       </button>
 
+	  <button
+	    onclick="
+ 	     clearScoreTracker('${side}')
+	    "
+	  >
+	    Clear Score Tracker
+	  </button>
+
+	</div>
+
       <button onclick="addAgenda('${side}')">
         Add Agenda
       </button>
@@ -545,6 +571,45 @@ function addObjective(side){
   });
 
   renderBattleScoreTracker();
+
+  saveToLocal();
+
+}
+
+function removeObjective(
+  side,
+  index
+){
+
+  state.battleScore
+    .objectives[side]
+    .splice(index, 1);
+
+  renderBattleScoreTracker();
+
+  updateLiveTotals();
+
+  saveToLocal();
+
+}
+
+function clearScoreTracker(side){
+
+  const confirmed = confirm(
+    "Clear all score tracker data?"
+  );
+
+  if(!confirmed) return;
+
+  state.battleScore
+    .objectives[side] = [];
+
+  state.battleScore
+    .agendas[side] = [];
+
+  renderBattleScoreTracker();
+
+  updateLiveTotals();
 
   saveToLocal();
 
